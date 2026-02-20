@@ -5,10 +5,10 @@ from loguru import logger
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from config import ANALYTICS_COLLECTION_NAME, MONGO_URL
+from config import MONGO_URL, PROJECT_NAME
 
 _client = AsyncMongoClient(MONGO_URL)
-_collection = _client["analytics_events"][ANALYTICS_COLLECTION_NAME]
+_collection = _client["analytics_events"][PROJECT_NAME]
 
 
 async def log_event(user_id: int, event: str, **data: Any) -> None:

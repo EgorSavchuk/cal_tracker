@@ -11,10 +11,10 @@ from aiogram.methods.base import Response, TelegramType
 from aiogram.types import TelegramObject
 from pymongo import AsyncMongoClient
 
-from config import MONGO_URL
+from config import MONGO_URL, PROJECT_NAME
 
 _client = AsyncMongoClient(MONGO_URL)
-_collection = _client["all_message_logging_bot"]["au_aiogram_template"]
+_collection = _client["all_message_logging_bot"][PROJECT_NAME]
 
 
 class UserRequestLoggingMiddleware(BaseMiddleware):

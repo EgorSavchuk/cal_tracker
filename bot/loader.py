@@ -8,7 +8,7 @@ from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 from loguru import logger
 from redis.asyncio.client import Redis
 
-from config import TOKEN_BOT, REDIS_URL
+from config import TOKEN_BOT, REDIS_URL, PROJECT_NAME
 from services.middleware import (
     UserRequestLoggingMiddleware,
     BotRequestLoggingMiddleware,
@@ -18,7 +18,7 @@ redis = Redis.from_url(REDIS_URL)
 
 bot = Bot(token=TOKEN_BOT, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 storage = RedisStorage(
-    redis, key_builder=DefaultKeyBuilder(prefix="au_aiogram_template")
+    redis, key_builder=DefaultKeyBuilder(prefix=PROJECT_NAME)
 )
 dp = Dispatcher(storage=storage)
 
