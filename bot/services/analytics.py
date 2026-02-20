@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, AsyncIterator
 
 from loguru import logger
@@ -16,7 +16,7 @@ async def log_event(user_id: int, event: str, **data: Any) -> None:
         await _collection.insert_one(
             {
                 "user_id": user_id,
-                "timestamp": datetime.now(timezone.utc),
+                "timestamp": datetime.now(UTC),
                 "event": event,
                 "data": data,
             }
