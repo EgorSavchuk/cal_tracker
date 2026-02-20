@@ -1,0 +1,22 @@
+[Unit]
+Description=au_aiogram_template Python Script Service
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=smirnov
+Group=smirnov
+WorkingDirectory=/home/smirnov/au_aiogram_template/bot
+ExecStart=/home/smirnov/.local/bin/uv run bot_start.py
+Restart=on-failure
+RestartSec=5s
+Environment=PYTHONUNBUFFERED=1
+KillSignal=SIGINT
+KillMode=control-group
+SuccessExitStatus=SIGINT SIGTERM
+TimeoutStopSec=1min
+ExecStop=/bin/kill -s SIGINT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
