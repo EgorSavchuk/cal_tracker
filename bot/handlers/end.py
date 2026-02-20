@@ -5,6 +5,7 @@ from aiogram.filters import Command
 
 from config import ADMIN_IDS
 from loader import dp, bot
+from services.analytics import log_event
 
 
 @dp.message(Command("get_photo_id"), F.content_type == "photo")
@@ -13,6 +14,11 @@ async def get_photo_id(message: types.Message):
     largest_photo = max(photos, key=lambda p: p.file_size)
     await message.reply(
         f"📸 <b>Photo ID:</b>\n<code>{largest_photo.file_id}</code>", parse_mode="HTML"
+    )
+    await log_event(
+        user_id=message.from_user.id,
+        event="get_photo_id",
+        username=message.from_user.username,
     )
 
 
@@ -25,6 +31,11 @@ async def get_message_json(message: types.Message):
     await message.reply(
         f"📄 *Raw JSON содержимого сообщения:*\n```json\n{formatted_json}```",
         parse_mode="Markdown",
+    )
+    await log_event(
+        user_id=message.from_user.id,
+        event="raw",
+        username=message.from_user.username,
     )
 
 
@@ -40,3 +51,9 @@ async def unexpected_message(message: types.Message):
                 await message.forward(chat_id=admin_id)
             except Exception:
                 pass
+        await log_event(
+            user_id=message.from_user.id,
+            event="unexpected_message",
+            username=message.from_user.username,
+            has_text=bool(message.text),
+        )

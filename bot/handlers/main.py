@@ -5,6 +5,7 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 
 from loader import dp
+from services.analytics import log_event
 from view import messages
 
 
@@ -21,5 +22,14 @@ async def start(message: types.Message, state: FSMContext):
             chat_id=message.from_user.id,
             username=message.from_user.username,
         )
+    else:
+        start_text = ""
 
     await message.answer(text=messages.start)
+
+    await log_event(
+        user_id=message.from_user.id,
+        event="start",
+        start_text=start_text,
+        username=message.from_user.username,
+    )

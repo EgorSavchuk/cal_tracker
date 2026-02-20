@@ -12,3 +12,5 @@ ADMIN_IDS = json.loads(os.getenv("ADMIN_IDS"))
 
 MONGO_URL = os.getenv("MONGO_URL")
 REDIS_URL = os.getenv("REDIS_URL")
+
+ANALYTICS_COLLECTION_NAME = os.getenv("ANALYTICS_COLLECTION_NAME")
