@@ -18,7 +18,6 @@ async def get_photo_id(message: types.Message):
     await log_event(
         user_id=message.from_user.id,
         event="get_photo_id",
-        username=message.from_user.username,
     )
 
 
@@ -35,7 +34,6 @@ async def get_message_json(message: types.Message):
     await log_event(
         user_id=message.from_user.id,
         event="raw",
-        username=message.from_user.username,
     )
 
 
@@ -54,6 +52,5 @@ async def unexpected_message(message: types.Message):
         await log_event(
             user_id=message.from_user.id,
             event="unexpected_message",
-            username=message.from_user.username,
             has_text=bool(message.text),
         )
