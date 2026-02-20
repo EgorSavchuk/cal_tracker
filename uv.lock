@@ -159,6 +159,7 @@ dependencies = [
     { name = "redis" },
     { name = "taskiq" },
     { name = "taskiq-redis" },
+    { name = "telegram-sender" },
 ]
 
 [package.dev-dependencies]
@@ -175,6 +176,7 @@ requires-dist = [
     { name = "redis", specifier = ">=7.2.0" },
     { name = "taskiq", specifier = ">=0.12.1" },
     { name = "taskiq-redis", specifier = ">=1.2.2" },
+    { name = "telegram-sender", specifier = ">=1.6.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -678,6 +680,20 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/90/0a/c555ac1d922e03b9fde2b1b609572a310a252f4bb79fbf964c3039efb6ff/taskiq_redis-1.2.2.tar.gz", hash = "sha256:103c488d143138bab8fc84044dbe68cd3561251090695a6042120398e9915325", size = 14460, upload-time = "2026-02-03T20:26:58.189Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/30/a6/a28f8e06540c041c03e9028a100c5b8949a01c4308f286a6c74197c3bf32/taskiq_redis-1.2.2-py3-none-any.whl", hash = "sha256:574d085c0c07f7fa9945e51195fe2db5b9d3c2a07bcfdc5a7ca323eae5319dff", size = 20666, upload-time = "2026-02-03T20:26:55.706Z" },
+]
+
+[[package]]
+name = "telegram-sender"
+version = "1.6.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "pydantic" },
+    { name = "pymongo" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f1/53/ecd8c051efdcdffe0c87bb59af816693e9e4a6527296189244bd11ff8350/telegram_sender-1.6.1.tar.gz", hash = "sha256:95095c9edcaf6bd729e6f766a7ac7c9c5f601062a7cdd7b119fea7c45588e62d", size = 11821, upload-time = "2025-12-08T21:40:29.616Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/19/32d027ca108d3a7ce613c6dedd95b49a1fe271b18125d842be4bfe9df8cb/telegram_sender-1.6.1-py3-none-any.whl", hash = "sha256:c5e1f87e7baed113dbf07ca46d2f8bb88040148e91f5b127f4eff5e7875b2aa3", size = 8415, upload-time = "2025-12-08T21:40:28.344Z" },
 ]
 
 [[package]]

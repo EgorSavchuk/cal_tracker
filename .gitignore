@@ -13,3 +13,6 @@ wheels/
 # Logs
 *.log
 logs/
+
+# Broadcast exports
+tools/*.txt
