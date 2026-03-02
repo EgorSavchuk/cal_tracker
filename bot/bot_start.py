@@ -35,6 +35,7 @@ class LongPollingMode(BotMode):
     PORT = 8080
 
     async def _on_startup(self):
+        await self.bot.delete_webhook(drop_pending_updates=False)
         mes = "Bot started in long polling mode!"
         print(mes)
         logger.info(mes)
