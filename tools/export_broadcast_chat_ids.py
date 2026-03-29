@@ -141,7 +141,9 @@ async def _exclude_blocked_chat_ids(
 async def async_main() -> int:
     iter_user_ids_fn, get_events_fn, is_user_blocked_fn = _load_services()
 
-    payment_events = {event_name.strip() for event_name in PAYMENT_EVENTS if event_name.strip()}
+    payment_events = {
+        event_name.strip() for event_name in PAYMENT_EVENTS if event_name.strip()
+    }
     if not payment_events:
         raise ValueError("PAYMENT_EVENTS не должен быть пустым.")
     if CONCURRENT_CHECKS < 1:

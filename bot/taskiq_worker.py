@@ -1,6 +1,10 @@
 from taskiq import TaskiqScheduler
 from taskiq.schedule_sources import LabelScheduleSource
-from taskiq_redis import RedisAsyncResultBackend, RedisScheduleSource, RedisStreamBroker
+from taskiq_redis import (
+    ListRedisScheduleSource,
+    RedisAsyncResultBackend,
+    RedisStreamBroker,
+)
 
 from config import REDIS_URL
 
@@ -8,7 +12,7 @@ broker = RedisStreamBroker(
     REDIS_URL,
 ).with_result_backend(RedisAsyncResultBackend(REDIS_URL))
 
-redis_source = RedisScheduleSource(REDIS_URL)
+redis_source = ListRedisScheduleSource(REDIS_URL)
 label_source = LabelScheduleSource(broker)
 
 scheduler = TaskiqScheduler(broker, sources=[redis_source, label_source])

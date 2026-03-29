@@ -17,9 +17,7 @@ from services.middleware import (
 redis = Redis.from_url(REDIS_URL)
 
 bot = Bot(token=TOKEN_BOT, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-storage = RedisStorage(
-    redis, key_builder=DefaultKeyBuilder(prefix=PROJECT_NAME)
-)
+storage = RedisStorage(redis, key_builder=DefaultKeyBuilder(prefix=PROJECT_NAME))
 dp = Dispatcher(storage=storage)
 
 

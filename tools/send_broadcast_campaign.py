@@ -77,7 +77,9 @@ def append_log(log_path: Path, message: str) -> None:
 
 
 def _chunked(items: Sequence[int], chunk_size: int) -> Sequence[Sequence[int]]:
-    return [items[index : index + chunk_size] for index in range(0, len(items), chunk_size)]
+    return [
+        items[index : index + chunk_size] for index in range(0, len(items), chunk_size)
+    ]
 
 
 def _build_reply_markup(variant: str) -> dict:
@@ -147,9 +149,7 @@ async def send_campaign(
         media_items=media_items,
         reply_markup=_build_reply_markup(variant),
     )
-    result_message = (
-        f"variant={variant}: total={len(chat_ids)}, delivered={delivered}, failed={not_delivered}"
-    )
+    result_message = f"variant={variant}: total={len(chat_ids)}, delivered={delivered}, failed={not_delivered}"
     print(result_message)
     append_log(log_path, result_message)
     return result_message
