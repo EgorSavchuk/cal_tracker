@@ -1,9 +1,9 @@
-from loader import dp
-from . import (  # noqa: F401
-    main,
-    chat_member,
-    error,
-    end,
-)
+from aiogram import Router
 
-__all__ = ["dp"]
+from . import commands, callbacks, intake, error
+
+router = Router()
+router.include_router(error.router)
+router.include_router(commands.router)
+router.include_router(callbacks.router)
+router.include_router(intake.router)  # catch-all must be last

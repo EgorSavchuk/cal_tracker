@@ -1,21 +1,21 @@
+from aiogram import Router
 from aiogram.exceptions import TelegramBadRequest
 from aiogram.types.error_event import ErrorEvent
-from loguru import logger
 
-from config import ADMIN_IDS
-from loader import dp, bot
-from view import messages
+from loader import bot, log
+from view import messages as msg
+
+router = Router()
 
 
-@dp.errors()
+@router.errors()
 async def errors_handler(event: ErrorEvent):
     if isinstance(event.exception, TelegramBadRequest) and "query is too old" in str(
         event.exception
     ):
         return
 
-    log_text = f"{event.model_dump(exclude_defaults=True, exclude_none=True)} - {event.exception}"
-    logger.exception(log_text)
+    log.exception(f"Error: {event.exception}")
 
     user_id = None
     if event.update:
@@ -26,12 +26,6 @@ async def errors_handler(event: ErrorEvent):
 
     if user_id:
         try:
-            await bot.send_message(user_id, messages.error)
-        except Exception as e:
-            logger.error(f"Не удалось отправить сообщение пользователю {user_id}: {e}")
-
-    for admin_id in ADMIN_IDS:
-        try:
-            await bot.send_message(admin_id, log_text)
-        except Exception as e:
-            logger.error(f"Не удалось отправить уведомление админу {admin_id}: {e}")
+            await bot.send_message(user_id, msg.error_text)
+        except Exception:
+            pass

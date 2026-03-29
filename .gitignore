@@ -14,5 +14,13 @@ wheels/
 *.log
 logs/
 
+# Database
+data/
+*.db
+
+# WebApp build
+webapp/node_modules/
+webapp/dist/
+
 # Broadcast exports
 tools/*.txt

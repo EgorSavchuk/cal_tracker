@@ -1,52 +1,37 @@
-from aiogram import Bot
-from aiogram import Dispatcher
+import sys
+
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.fsm.storage.base import DefaultKeyBuilder
-from aiogram.fsm.storage.redis import RedisStorage
+from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 from loguru import logger
-from redis.asyncio.client import Redis
 
-from config import TOKEN_BOT, REDIS_URL, PROJECT_NAME
-from services.middleware import (
-    UserRequestLoggingMiddleware,
-    BotRequestLoggingMiddleware,
+from config import TELEGRAM_BOT_TOKEN
+
+bot = Bot(
+    token=TELEGRAM_BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML),
 )
-
-redis = Redis.from_url(REDIS_URL)
-
-bot = Bot(token=TOKEN_BOT, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-storage = RedisStorage(redis, key_builder=DefaultKeyBuilder(prefix=PROJECT_NAME))
+storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 
-
+# Logging
 logger.remove()
 log = logger
+log.add(sys.stdout, level="INFO")
 log.add(
-    "logs/CRITICAL/{time:YYYY-MM-DD_HH-mm-ss}.log",
-    level="CRITICAL",
-    rotation="10 MB",
-    compression="zip",
-)
-log.add(
-    "logs/ERROR/{time:YYYY-MM-DD_HH-mm-ss}.log",
+    "logs/ERROR/{time:YYYY-MM-DD}.log",
     level="ERROR",
     rotation="10 MB",
     compression="zip",
 )
 log.add(
-    "logs/INFO/{time:YYYY-MM-DD_HH-mm-ss}.log",
+    "logs/INFO/{time:YYYY-MM-DD}.log",
     level="INFO",
     rotation="10 MB",
     compression="zip",
 )
-log.info("Start")
-
-user_request_logger = UserRequestLoggingMiddleware()
-bot_request_logger = BotRequestLoggingMiddleware()
+log.info("Loader initialized")
 
 dp.callback_query.middleware(CallbackAnswerMiddleware())
-dp.message.middleware(user_request_logger)
-dp.callback_query.middleware(user_request_logger)
-bot.session.middleware(bot_request_logger)

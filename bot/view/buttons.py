@@ -1,0 +1,10 @@
+# Callback data constants
+CONFIRM = "confirm"
+CLARIFY = "clarify"
+CLOSE_CONFIRM = "close_confirm"
+CLOSE_CLARIFY = "close_clarify"
+SAVE_PRODUCTS = "save_products"
+ADMIN_APPROVE = "admin_approve"
+ADMIN_REJECT = "admin_reject"
+MOD_CONFIRM = "mod_confirm"
+MOD_REJECT = "mod_reject"
